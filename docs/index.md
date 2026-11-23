@@ -1,6 +1,51 @@
 # xvoke Documentation
 
-This directory holds the documentation for xvoke.
+## Overview
+
+xvoke standardizes cross-project work done by AI agents, and enforces quality gates on each change, so that the work is efficient and its quality is assured.
+It is provided as a Claude Code plugin.
+
+- **Project configuration**: each target project is described by a `project.yaml` file, which defines the working copy, the default branch, and the quality gates a change must pass.
+- **Skill `xv-run`**: carries out an instruction on a project, from a work branch through the quality gates to a merged pull request.
+- **Quality gates**: checks that run on the change before it is merged: `test`, `consistency`, `review` (by an AI agent or by the user), and `ci`.
+
+The details are defined in the following files, which are the source of truth:
+
+- [SKILL.md](../plugin/skills/xv-run/SKILL.md): the behavior of `xv-run`
+- [project.example.yaml](../plugin/skills/xv-run/references/project.example.yaml): the format of `project.yaml`, with every field and gate kind
+
+## Directory layout
+
+`project.yaml` is placed in the workspace, the directory where the session runs. Each project has its own directory, `xvokedir/{project name}/`, and `/xv-run {project name}` reads `project.yaml` from there. The working copy of a project can be anywhere; `root` in `project.yaml` points to it.
+
+```
+workspace/
+└── xvokedir/
+    └── myapp/            # the project name
+        └── project.yaml
+
+~/repos/myapp/            # the working copy
+```
+
+## Minimal project.yaml
+
+```yaml
+name: myapp
+root: ~/repos/myapp
+default_branch: main
+quality_gates:
+  - kind: test
+    command: make test
+  - kind: ci    # waits for the CI of the remote repository
+```
+
+## Usage
+
+```
+/xv-run myapp Add a --verbose option to the CLI
+```
+
+## Contents
 
 - [spec/](spec/): Specifications
 - [adr/](adr/): Architecture Decision Records
