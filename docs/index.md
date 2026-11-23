@@ -6,7 +6,7 @@ xvoke standardizes cross-project work done by AI agents, and enforces quality ga
 It is provided as a Claude Code plugin.
 
 - **Project configuration**: each target project is described by a `project.yaml` file, which defines the working copy, the default branch, and the quality gates a change must pass.
-- **Skill `xv-run`**: carries out an instruction on a project, from a work branch through the quality gates to a merged pull request.
+- **Skill `xv-run`** (invoked as `/xvoke:xv-run`): carries out an instruction on a project, from a work branch through the quality gates to a merged pull request.
 - **Quality gates**: checks that run on the change before it is merged: `test`, `consistency`, `review` (by an AI agent or by the user), and `ci`.
 
 The details are defined in the following files, which are the source of truth:
@@ -16,7 +16,7 @@ The details are defined in the following files, which are the source of truth:
 
 ## Directory layout
 
-`project.yaml` is placed in the workspace, the directory where the session runs. Each project has its own directory, `xvokedir/{project name}/`, and `/xv-run {project name}` reads `project.yaml` from there. The working copy of a project can be anywhere; `root` in `project.yaml` points to it.
+`project.yaml` is placed in the workspace, the directory where the session runs. Each project has its own directory, `xvokedir/{project name}/`, and `/xvoke:xv-run {project name}` reads `project.yaml` from there. The working copy of a project can be anywhere; `root` in `project.yaml` points to it.
 
 ```
 workspace/
@@ -42,7 +42,7 @@ quality_gates:
 ## Usage
 
 ```
-/xv-run myapp Add a --verbose option to the CLI
+/xvoke:xv-run myapp Add a --verbose option to the CLI
 ```
 
 ## Contents
