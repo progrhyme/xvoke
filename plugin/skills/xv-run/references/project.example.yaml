@@ -23,6 +23,14 @@ repo_url: https://github.com/example/example
 # required. Branch that work branches from and pull requests merge into.
 default_branch: main
 
+# optional. Default: the values stated below.
+workflow_style:
+  # optional. one of: true | false. Default: true.
+  # true: work on a work branch, and merge it through a pull request.
+  # false: work on `default_branch` directly, and open no pull request.
+  #   The `ci` gate does not run, because it waits for the CI of a pull request.
+  prefer_pull_request: true
+
 # optional. Default: no quality gates.
 # Gates run in a fixed order, whatever the order written here.
 # The gates below are listed in that order.
