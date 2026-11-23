@@ -1,0 +1,9 @@
+{
+  "name": "xvoke",
+  "version": "0.0.1",
+  "description": "Standardizes cross-project work so that AI agents can carry it out efficiently with guaranteed quality.",
+  "author": {
+    "name": "progrhyme"
+  },
+  "repository": "https://github.com/progrhyme/xvoke"
+}
