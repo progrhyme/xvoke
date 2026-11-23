@@ -1,0 +1,27 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+Each entry starts with a label that tells what it changes:
+
+- `(skill)`: the behavior and the format of the skills
+- `(plugin)`: the plugin package
+- `(doc)`: the documentation
+- `(repo)`: the repository itself
+
+## [Unreleased]
+
+## [0.0.1] - 2026-11-23
+
+### Added
+
+- (skill) The `xv-run` skill, which carries out an instruction on a project through to a merged pull request.
+- (skill) The `project.yaml` configuration file of a project, with its quality gates.
+- (plugin) The Claude Code plugin manifest.
+- (doc) The overview, the usage, and the installation guide.
+- (repo) The MIT license.
+
+[Unreleased]: https://github.com/progrhyme/xvoke/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/progrhyme/xvoke/releases/tag/v0.0.1
