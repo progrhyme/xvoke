@@ -31,6 +31,7 @@ The skill is invoked as `/xvoke:xv-run`. To stop loading the plugin, run `claude
 
 ```
 AGENTS.md
+CHANGELOG.md
 LICENSE
 README.md
 docs/
