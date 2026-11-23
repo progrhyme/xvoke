@@ -6,7 +6,8 @@ xvoke standardizes cross-project work done by AI agents, and enforces quality ga
 It is provided as a Claude Code plugin.
 
 - **Project configuration**: each target project is described by a `project.yaml` file, which defines the working copy, the default branch, and the quality gates a change must pass.
-- **Skill `xv-run`** (invoked as `/xvoke:xv-run`): carries out an instruction on a project, from a work branch through the quality gates to a merged pull request.
+- **Skill `xv-run`** (invoked as `/xvoke:xv-run`): carries out an instruction on a project, through the quality gates.
+  By default, the skill works on a branch and takes the change to a merged pull request. A project can change this in `project.yaml`.
 - **Quality gates**: checks that run on the change before it is merged: `test`, `consistency`, `review` (by an AI agent or by the user), and `ci`.
 
 The details are defined in the following files, which are the source of truth:

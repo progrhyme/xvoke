@@ -13,6 +13,10 @@ Each entry starts with a label that tells what it changes:
 
 ## [Unreleased]
 
+### Added
+
+- (skill) The `workflow_style.prefer_pull_request` setting of `project.yaml`. When it is `false`, `xv-run` works on the default branch directly and opens no pull request.
+
 ## [0.0.1] - 2026-11-23
 
 ### Added

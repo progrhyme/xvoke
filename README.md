@@ -4,7 +4,7 @@ xvoke standardizes cross-project work done by AI agents, and enforces quality ga
 It is provided as a Claude Code plugin.
 
 Each target project is described by a `project.yaml` file at `xvokedir/{project-name}/project.yaml` in the workspace. The workspace is the directory where you run Claude Code, and it holds `xvokedir/` with one subdirectory per target project.
-The `xv-run` skill reads `project.yaml` to take a change to the project through to a merged pull request.
+The `xv-run` skill reads `project.yaml` and carries out your instruction on the project through the quality gates. By default, the skill works on a branch and takes the change to a merged pull request; a project can opt out with `workflow_style.prefer_pull_request: false` in `project.yaml`.
 
 ## Installation
 
