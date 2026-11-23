@@ -1,0 +1,70 @@
+# Annotated example of project.yaml: the configuration file of a target project.
+# Location: {workspace}/xvokedir/{project-name}/project.yaml
+# This example covers every field and every kind of quality gate.
+# It is the source of truth for the format.
+#
+# Notation in comments:
+#   required              the field must be present
+#   optional              the field may be omitted; the default is stated
+#   one of: a | b         the value must be one of the listed values
+
+# required. Project name. Must equal the directory name under xvokedir/.
+name: example
+
+# optional. What the project is.
+description: An example project
+
+# required. Path of the local working copy.
+root: ~/repos/example
+
+# optional. URL of the remote repository.
+repo_url: https://github.com/example/example
+
+# required. Branch that work branches from and pull requests merge into.
+default_branch: main
+
+# optional. Default: no quality gates.
+# Gates run in a fixed order, whatever the order written here.
+# The gates below are listed in that order.
+# `paths` of every gate, optional unless stated otherwise:
+#   - Glob patterns relative to `root`.
+#   - The gate runs when the diff contains a file that matches any pattern.
+#   - Default: the gate always runs.
+quality_gates:
+  # kind: test
+  # Runs a command, such as lint or test. The gate passes when the exit status is 0.
+  - kind: test              # required. one of: test | review | consistency | ci
+    command: make test      # required. Command to run, from `root`.
+    paths: ["**/*.go"]      # optional.
+    description: Unit tests # optional. Purpose of the gate.
+
+  # kind: consistency
+  # Checks that the files matching `paths` agree with each other.
+  # When the diff contains any of them, the changed files are checked against the other files that match `paths`.
+  - kind: consistency
+    paths: ["docs/spec/**", "src/**"]  # required. Files that must stay consistent, including source code.
+    description: |                     # required. Policy of the check, and patterns that tend to drift.
+      Specifications must match the implementation.
+      Check both directions: the specs may be changed without the code, or the code without the specs.
+      The most common drift is a code change that the specs do not follow.
+
+  # kind: review, reviewed by an AI agent (authorizer omitted or "agent")
+  # Runs `skill` in a subagent and fixes the findings.
+  - kind: review
+    authorizer: agent       # optional. one of: agent | user. Default: agent.
+    skill: code-review      # required when authorizer is agent. Skill to run.
+    paths: ["**/*.go"]      # optional.
+    description: Check SOLID principles and error handling  # optional. The agent reads it before running the skill and takes it into account.
+
+  # kind: review, reviewed by the user
+  # Asks the user to review. `command` can help the review, such as starting a preview.
+  - kind: review
+    authorizer: user        # required for a review by the user.
+    command: make preview   # optional. Command that helps the user review.
+    paths: ["docs/**"]      # optional.
+    description: Check that the rendered documents read well  # required. Purpose and content of the review.
+
+  # kind: ci
+  # Waits for the CI of the remote repository to finish.
+  - kind: ci
+    description: Wait for the CI of the pull request  # optional.
