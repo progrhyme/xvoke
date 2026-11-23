@@ -1,11 +1,12 @@
 ---
 name: xv-run
-description: Carries out an instruction on a registered project, from a work branch through quality gates to a merged pull request. Takes a project name and an instruction as its arguments. Runs only when invoked through the skill command (/xv-run); it has no natural-language trigger conditions.
+description: Carries out an instruction on a registered project, through quality gates, by default from a work branch to a merged pull request. Takes a project name and an instruction as its arguments. Runs only when invoked through the skill command (/xv-run); it has no natural-language trigger conditions.
 ---
 
 # xv-run
 
-Carry out the instruction on the project, and take the change through to a merged pull request.
+Carry out the instruction on the project. By default, take the change through to a merged pull request.
+When the project's `workflow_style.prefer_pull_request` is `false`, steps 2 and 5 note what differs, and step 8 adjusts the report.
 The project's `project.yaml` defines where the working copy is and which quality gates the change must pass, so that the result meets the same standard on every project.
 
 ## Arguments
@@ -27,7 +28,8 @@ The project's `project.yaml` defines where the working copy is and which quality
 
 ### 2. Prepare a branch
 
-- Branch from the latest `default_branch`, unless the user says otherwise. Work on the branch, never on `default_branch`, so that every change goes through a pull request.
+- If `prefer_pull_request` is `false`, do not branch. Update `default_branch` to the latest and work on it.
+- Otherwise, branch from the latest `default_branch`, unless the user says otherwise. Work on the branch, never on `default_branch`, so that every change goes through a pull request.
 - If the working copy has uncommitted changes you did not make, ask the user before going on.
 
 ### 3. Do the work
@@ -45,7 +47,7 @@ Run every gate except `ci`, which needs the pull request and runs in step 6.
 
 #### Selection
 
-- The changed files are the difference from `default_branch`, including uncommitted and untracked files.
+- The changed files are the difference from the commit step 2 started from (the latest `default_branch`), including uncommitted and untracked files.
 - Decide whether a gate runs by its `paths`, as `project.example.yaml` defines.
 
 #### Execution
@@ -63,7 +65,7 @@ Run every gate except `ci`, which needs the pull request and runs in step 6.
 
 ### 5. Commit, push, and open the pull request
 
-Follow the repository's rules on commits, pushes, and pull requests. If a rule is missing or ambiguous, ask the user instead of guessing, because these actions are hard to undo and visible to others.
+Follow the repository's rules on commits, pushes, and pull requests. If `prefer_pull_request` is `false`, open no pull request, and skip steps 6 and 7. If a rule is missing or ambiguous, ask the user instead of guessing, because these actions are hard to undo and visible to others.
 
 ### 6. Wait for the `ci` gate
 
@@ -76,4 +78,4 @@ Merge the pull request by the repository's rules. If the rules do not say who me
 
 ### 8. Report
 
-Report the pull request, the gates that ran and their results, and anything left undone.
+Report the pull request (or, without one, the commits), the gates that ran and their results, and anything left undone.
