@@ -1,0 +1,167 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://github.com/progrhyme/xvoke/schema/project/v1
+title: project.yaml
+description: The configuration file of a project that xvoke works on.
+type: object
+required: [name, root, default_branch]
+additionalProperties: false
+properties:
+  schema_version:
+    description: The version of this schema. When omitted, xvoke uses the latest version.
+    type: integer
+    const: 1
+  name:
+    description: Project name. Must equal the directory name under xvokedir/.
+    type: string
+    minLength: 1
+  description:
+    description: What the project is.
+    type: string
+  root:
+    description: Path of the local working copy.
+    type: string
+    minLength: 1
+  repo_url:
+    description: URL of the remote repository.
+    type: string
+  default_branch:
+    description: Branch that work branches from and pull requests merge into.
+    type: string
+    minLength: 1
+  workflow_style:
+    description: How the work goes from a change to the default branch.
+    type: object
+    additionalProperties: false
+    properties:
+      prefer_pull_request:
+        description: >-
+          When true (the default), work on a work branch and merge it through a pull request.
+          When false, work on the default branch directly and open no pull request.
+        type: boolean
+  quality_gates:
+    description: Gates that a change must pass. Default is no gates.
+    type: array
+    items:
+      $ref: "#/$defs/gate"
+$defs:
+  paths:
+    description: Glob patterns relative to `root`. The gate runs when the diff contains a matching file.
+    type: array
+    minItems: 1
+    items:
+      type: string
+      minLength: 1
+  gate:
+    type: object
+    required: [kind]
+    properties:
+      kind:
+        enum: [test, review, consistency, ci]
+    allOf:
+      - if:
+          required: [kind]
+          properties:
+            kind:
+              const: test
+        then:
+          $ref: "#/$defs/testGate"
+      - if:
+          required: [kind]
+          properties:
+            kind:
+              const: consistency
+        then:
+          $ref: "#/$defs/consistencyGate"
+      - if:
+          required: [kind]
+          properties:
+            kind:
+              const: review
+        then:
+          $ref: "#/$defs/reviewGate"
+      - if:
+          required: [kind]
+          properties:
+            kind:
+              const: ci
+        then:
+          $ref: "#/$defs/ciGate"
+  testGate:
+    description: Runs a command. The gate passes when the exit status is 0.
+    type: object
+    required: [kind, command]
+    additionalProperties: false
+    properties:
+      kind: {}
+      command:
+        type: string
+        minLength: 1
+      paths:
+        $ref: "#/$defs/paths"
+      description:
+        type: string
+  consistencyGate:
+    description: Checks that the files matching `paths` agree with each other.
+    type: object
+    required: [kind, paths, description]
+    additionalProperties: false
+    properties:
+      kind: {}
+      paths:
+        $ref: "#/$defs/paths"
+      description:
+        type: string
+        minLength: 1
+  reviewGate:
+    description: A review by an AI agent (authorizer omitted or "agent") or by the user.
+    if:
+      required: [authorizer]
+      properties:
+        authorizer:
+          const: user
+    then:
+      $ref: "#/$defs/userReviewGate"
+    else:
+      $ref: "#/$defs/agentReviewGate"
+  agentReviewGate:
+    type: object
+    required: [kind, skill]
+    additionalProperties: false
+    properties:
+      kind: {}
+      authorizer:
+        const: agent
+      skill:
+        type: string
+        minLength: 1
+      paths:
+        $ref: "#/$defs/paths"
+      description:
+        type: string
+  userReviewGate:
+    type: object
+    required: [kind, authorizer, description]
+    additionalProperties: false
+    properties:
+      kind: {}
+      authorizer:
+        const: user
+      command:
+        type: string
+        minLength: 1
+      paths:
+        $ref: "#/$defs/paths"
+      description:
+        type: string
+        minLength: 1
+  ciGate:
+    description: Waits for the CI of the remote repository to finish.
+    type: object
+    required: [kind]
+    additionalProperties: false
+    properties:
+      kind: {}
+      paths:
+        $ref: "#/$defs/paths"
+      description:
+        type: string
