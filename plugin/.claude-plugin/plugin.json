@@ -1,6 +1,6 @@
 {
   "name": "xvoke",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Standardizes cross-project work so that AI agents can carry it out efficiently with guaranteed quality.",
   "author": {
     "name": "progrhyme"
