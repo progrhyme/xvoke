@@ -119,7 +119,7 @@ func TestInvalid(t *testing.T) {
 		{name: "missing default_branch", src: "name: app\nroot: ~/repos/app\n", want: "missing property 'default_branch'"},
 		{name: "schema_version is not supported", src: "schema_version: 2\n" + base, want: "/schema_version"},
 		{name: "schema_version is not an integer", src: "schema_version: one\n" + base, want: "/schema_version"},
-		{name: "unknown key in workflow_style", src: base + "workflow_style:\n  prefer_branch: true\n", want: "prefer_branch"},
+		{name: "unknown key in workflow_style", src: base + "workflow_style:\n  pull_request: false\n", want: "pull_request"},
 		{name: "prefer_pull_request is not a boolean", src: base + "workflow_style:\n  prefer_pull_request: \"false\"\n", want: "/workflow_style/prefer_pull_request"},
 		{name: "unknown kind", src: base + "quality_gates:\n  - kind: lint\n", want: "/quality_gates/0/kind"},
 		{name: "gate without kind", src: base + "quality_gates:\n  - command: make test\n", want: "missing property 'kind'"},
