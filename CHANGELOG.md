@@ -13,6 +13,11 @@ Each entry starts with a label that tells what it changes:
 
 ## [Unreleased]
 
+### Added
+
+- (skill) The optional `schema_version` key of `project.yaml`.
+- (repo) The JSON Schema of `project.yaml` and the Go module.
+
 ## [0.0.2] - 2026-11-23
 
 ### Added
