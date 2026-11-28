@@ -193,7 +193,7 @@ func TestValidateValid(t *testing.T) {
 	if doc["valid"] != true || doc["path"] != path {
 		t.Errorf("unexpected output: %s", r.stdout)
 	}
-	if !strings.Contains(r.stdout, `"errors": []`) || !strings.Contains(r.stdout, `"warnings": []`) {
+	if !strings.Contains(r.stdout, `"errors":[]`) || !strings.Contains(r.stdout, `"warnings":[]`) {
 		t.Errorf("errors and warnings must be empty arrays: %s", r.stdout)
 	}
 }
