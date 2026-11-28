@@ -19,6 +19,7 @@ Each entry starts with a label that tells what it changes:
 - (skill) The optional `schema_version` key of `project.yaml`.
 - (go) The Go module of the `xvoke` command, and the JSON Schema of `project.yaml` that it embeds.
 - (go) The `xvoke` command with `validate`, `schema`, `version`, and `help`. It writes JSON to the standard output.
+- (repo) The Makefile, and the workflows of CI and of the release that attaches the binaries of `xvoke` to a GitHub Release.
 
 ## [0.0.2] - 2026-11-23
 
