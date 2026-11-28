@@ -8,6 +8,9 @@
 #   optional              the field may be omitted; the default is stated
 #   one of: a | b         the value must be one of the listed values
 
+# optional. Version of the schema that this file follows. Default: the newest version that xvoke supports.
+schema_version: 1
+
 # required. Project name. Must equal the directory name under xvokedir/.
 name: example
 
