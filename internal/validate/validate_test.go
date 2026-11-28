@@ -104,11 +104,11 @@ func TestSchemaErrors(t *testing.T) {
 		},
 		{
 			name: "several errors are sorted by line",
-			src:  base + "quality_gates:\n  - kind: review\n  - kind: lint\nworkflow_style:\n  prefer_branch: true\n",
+			src:  base + "quality_gates:\n  - kind: review\n  - kind: lint\nworkflow_style:\n  pull_request: false\n",
 			want: []want{
 				{"schema", "/quality_gates/0", 5, "skill"},
 				{"schema", "/quality_gates/1/kind", 6, "must be one of"},
-				{"schema", "/workflow_style/prefer_branch", 8, "unknown key"},
+				{"schema", "/workflow_style/pull_request", 8, "unknown key"},
 			},
 		},
 		{
