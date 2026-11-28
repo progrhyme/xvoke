@@ -1,7 +1,7 @@
 // Package cli runs the xvoke command: it parses the arguments, runs the command,
 // and writes the result to the standard output as one JSON document.
 //
-// The standard error output is not used. A failure to run is reported as {"error": {"message": ...}}.
+// The standard error output is not used. A failure to run is reported as {"error":{"message":...}}.
 package cli
 
 import (
@@ -53,11 +53,10 @@ func Run(args []string, stdout io.Writer, deps Deps) int {
 	return c.Run(args[1:], e)
 }
 
-// print writes v as an indented JSON document, and returns status. A failure to write is an error.
+// print writes v as a single-line JSON document, and returns status. A failure to write is an error.
 func (e env) print(v any, status int) int {
 	enc := json.NewEncoder(e.stdout)
 	enc.SetEscapeHTML(false)
-	enc.SetIndent("", "  ")
 	if err := enc.Encode(v); err != nil {
 		// The output cannot be written, and nothing may go to the standard error output, so only the status tells it.
 		return exitError

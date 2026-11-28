@@ -19,7 +19,7 @@ xvoke <command> [flags]
 
 - The command writes one JSON document to the standard output.
 - The command writes nothing to the standard error output.
-- The document is indented with two spaces, and ends with a newline.
+- The document is written on one line, and ends with a newline.
 - A command that could not run writes an error document, if the output can be written (see [Errors](#errors)).
 - `schema` writes the schema itself, which is a JSON document.
 
@@ -42,6 +42,8 @@ xvoke validate <project.yaml>
 ```
 
 The argument is the path of one `project.yaml`. The command reads the file, and writes the result.
+
+The JSON examples in this document are indented with two spaces for reading. The command does not indent its output. To read the output yourself, pipe it to a tool such as `jq`.
 
 ```json
 {
