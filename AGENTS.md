@@ -41,6 +41,7 @@ xvoke is a Claude Code plugin that standardizes cross-project work. It ships a c
 | `docs/spec/` | Specifications |
 | `docs/adr/` | Architecture Decision Records |
 | `docs/develop/` | Development conventions |
+| `docs/maint/` | Documentation conventions |
 | `plugin/skills/` | Skills provided by the plugin (e.g. `xv-run`) |
 | `cmd/xvoke/` | Entry point of the `xvoke` command |
 | `internal/` | Go packages of the `xvoke` command |

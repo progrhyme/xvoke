@@ -59,3 +59,4 @@ xvoke validate xvokedir/myapp/project.yaml
 - [spec/](spec/): Specifications
 - [adr/](adr/): Architecture Decision Records
 - [develop/convention.md](develop/convention.md): Development conventions
+- [maint/documents.md](maint/documents.md): Documentation conventions
