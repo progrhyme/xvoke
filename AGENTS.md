@@ -22,6 +22,7 @@ xvoke is a Claude Code plugin that standardizes cross-project work. It ships a c
   - ✅ `test:`
   - 🏗️ `build:` build system or dependencies
   - 👷 `ci:` CI configuration or scripts
+  - 🚀 `release:` the commit that sets the version of a release, such as `🚀 release: v0.0.3`
   - 🔧 `chore:` anything else
   - ⏪️ `revert:`
 - Make each commit one kind of change. Split changes with different prefixes into separate commits, unless one cannot stand without the other (e.g. a feature and its tests).

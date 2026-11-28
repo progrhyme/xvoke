@@ -14,6 +14,8 @@ Each entry starts with a label that tells what it changes:
 
 ## [Unreleased]
 
+## [0.0.3] - 2026-11-28
+
 ### Added
 
 - (skill) The optional `schema_version` key of `project.yaml`.
@@ -21,6 +23,7 @@ Each entry starts with a label that tells what it changes:
 - (go) The `xvoke` command with `validate`, `schema`, `version`, and `help`. It writes JSON to the standard output.
 - (repo) The Makefile, and the workflows of CI and of the release that attaches the binaries of `xvoke` to a GitHub Release.
 - (doc) The specification of the `xvoke` command, its installation and usage, and the ADR that adds the command.
+- (doc) The documentation conventions.
 
 ## [0.0.2] - 2026-11-23
 
@@ -38,6 +41,7 @@ Each entry starts with a label that tells what it changes:
 - (doc) The overview, the usage, and the installation guide.
 - (repo) The MIT license.
 
-[Unreleased]: https://github.com/progrhyme/xvoke/compare/v0.0.2...HEAD
+[Unreleased]: https://github.com/progrhyme/xvoke/compare/v0.0.3...HEAD
+[0.0.3]: https://github.com/progrhyme/xvoke/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/progrhyme/xvoke/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/progrhyme/xvoke/releases/tag/v0.0.1
