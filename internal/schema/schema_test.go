@@ -144,3 +144,17 @@ func TestInvalid(t *testing.T) {
 		})
 	}
 }
+
+func TestDocument(t *testing.T) {
+	doc, err := schema.Document(schema.Latest())
+	if err != nil {
+		t.Fatal(err)
+	}
+	fields, ok := doc.(map[string]any)
+	if !ok || fields["$schema"] == nil || fields["properties"] == nil {
+		t.Errorf("the document lost its content: %v", doc)
+	}
+	if _, err := schema.Document(99); !errors.Is(err, schema.ErrUnknownVersion) {
+		t.Errorf("Document(99) = %v, want ErrUnknownVersion", err)
+	}
+}
