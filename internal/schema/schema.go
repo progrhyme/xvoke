@@ -58,8 +58,8 @@ func Latest() int {
 	return latest
 }
 
-// Compile returns the compiled schema of the version, or an error wrapping ErrUnknownVersion if none exists.
-func Compile(version int) (*jsonschema.Schema, error) {
+// Document returns the schema of the version as a generic value. The keys of an object have no order.
+func Document(version int) (any, error) {
 	b, err := Get(version)
 	if err != nil {
 		return nil, err
@@ -67,6 +67,15 @@ func Compile(version int) (*jsonschema.Schema, error) {
 	var doc any
 	if err := yaml.Unmarshal(b, &doc); err != nil {
 		return nil, fmt.Errorf("parse schema version %d: %w", version, err)
+	}
+	return doc, nil
+}
+
+// Compile returns the compiled schema of the version, or an error wrapping ErrUnknownVersion if none exists.
+func Compile(version int) (*jsonschema.Schema, error) {
+	doc, err := Document(version)
+	if err != nil {
+		return nil, err
 	}
 	url := "xvoke://" + fileName(version)
 	c := jsonschema.NewCompiler()

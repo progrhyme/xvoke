@@ -8,6 +8,7 @@ Each entry starts with a label that tells what it changes:
 
 - `(skill)`: the behavior and the format of the skills
 - `(plugin)`: the plugin package
+- `(go)`: the `xvoke` command, written in Go, and the JSON Schema it embeds
 - `(doc)`: the documentation
 - `(repo)`: the repository itself
 
@@ -16,7 +17,8 @@ Each entry starts with a label that tells what it changes:
 ### Added
 
 - (skill) The optional `schema_version` key of `project.yaml`.
-- (repo) The JSON Schema of `project.yaml` and the Go module.
+- (go) The Go module of the `xvoke` command, and the JSON Schema of `project.yaml` that it embeds.
+- (go) The `xvoke` command with `validate`, `schema`, `version`, and `help`. It writes JSON to the standard output.
 
 ## [0.0.2] - 2026-11-23
 
