@@ -4,7 +4,7 @@ Rules for AI agents that edit files, commit, or open pull requests in this repos
 
 ## Overview
 
-xvoke is a Claude Code plugin that standardizes cross-project work. See [README.md](README.md).
+xvoke is a Claude Code plugin that standardizes cross-project work. It ships a command-line tool, also named `xvoke`, written in Go. See [README.md](README.md).
 
 ## Language
 
@@ -41,3 +41,5 @@ xvoke is a Claude Code plugin that standardizes cross-project work. See [README.
 | `docs/spec/` | Specifications |
 | `docs/adr/` | Architecture Decision Records |
 | `plugin/skills/` | Skills provided by the plugin (e.g. `xv-run`) |
+| `cmd/xvoke/` | Entry point of the `xvoke` command |
+| `internal/` | Go packages of the `xvoke` command |
