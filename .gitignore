@@ -1,0 +1,10 @@
+# Build artifacts
+/xvoke
+/dist/
+
+# Go
+*.test
+coverage.out
+
+# macOS
+.DS_Store
